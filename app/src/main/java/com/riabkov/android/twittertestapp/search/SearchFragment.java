@@ -49,11 +49,13 @@ public class SearchFragment extends BaseTweetSwipeRecyclerFragment implements Se
             mSavedQuery = getArguments().getString(ARG_QUERY);
         }
         String query = mSavedQuery != null? mSavedQuery :QueryUtils.getQuery(mSearchView);
+        mSwipeRefreshLayout.setRefreshing(true);
         mPresenter.searchTweets(query);
     }
 
     @Override
     protected void onRecyclerBottomReached() {
+        super.onRecyclerBottomReached();
         mPresenter.getNextTweets(QueryUtils.getQuery(mSearchView), mTweets.get(mTweets.size() - 1).getId());
         isLoadingProgress = true;
     }
@@ -122,22 +124,24 @@ public class SearchFragment extends BaseTweetSwipeRecyclerFragment implements Se
                 mTweets.add(tweetShort);
             }
         }
-        if (tweets.size()<3) {
+        if (tweets.isEmpty()) {
             hasLoadedAll = true;
         }
-        mAdapter.updateData(mTweets);
+        mSwipeRefreshLayout.setRefreshing(false);
         isLoadingProgress = false;
+        mAdapter.updateData(mTweets);
     }
 
     @Override
     public void showTweets(List<TweetShort> tweets) {
         mTweets.clear();
         mTweets.addAll(tweets);
-        if(tweets.size()<3){
+        if(tweets.isEmpty()){
             hasLoadedAll = true;
         }
-        mAdapter.setData(mTweets);
         isLoadingProgress = false;
+        mSwipeRefreshLayout.setRefreshing(false);
+        mAdapter.setData(mTweets);
     }
 
     @Override

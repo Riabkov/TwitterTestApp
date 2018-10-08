@@ -43,6 +43,7 @@ public class NearbyFragment extends BaseTweetSwipeRecyclerFragment implements Ne
     @Override
     protected void onViewReady() {
         super.onViewReady();
+
         getActivity().setTitle(R.string.title_nearby);
         setHasOptionsMenu(true);
         getLastKnownLocation();
@@ -57,6 +58,7 @@ public class NearbyFragment extends BaseTweetSwipeRecyclerFragment implements Ne
 
     @Override
     protected void onRecyclerBottomReached() {
+        super.onRecyclerBottomReached();
         mPresenter.getNextTweets(QueryUtils.getQuery(mSearchView), mTweets.get(mTweets.size() - 1).getId(), mUserLocation.getLatitude(), mUserLocation.getLongitude());
         isLoadingProgress = true;
     }
@@ -112,6 +114,7 @@ public class NearbyFragment extends BaseTweetSwipeRecyclerFragment implements Ne
         if (tweets.size()<3) {
             hasLoadedAll = true;
         }
+        mSwipeRefreshLayout.setRefreshing(false);
         mAdapter.updateData(mTweets);
         isLoadingProgress = false;
     }
@@ -123,6 +126,7 @@ public class NearbyFragment extends BaseTweetSwipeRecyclerFragment implements Ne
         if (tweets.size()<3) {
             hasLoadedAll = true;
         }
+        mSwipeRefreshLayout.setRefreshing(false);
         mAdapter.setData(mTweets);
         isLoadingProgress = false;
     }
@@ -160,6 +164,7 @@ public class NearbyFragment extends BaseTweetSwipeRecyclerFragment implements Ne
                     latitude = mUserLocation.getLatitude();
                     longitude = mUserLocation.getLongitude();
                 }
+                mSwipeRefreshLayout.setRefreshing(true);
                 mPresenter.searchTweets(QueryUtils.getQuery(mSearchView),latitude,longitude);
             }
 

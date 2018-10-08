@@ -48,6 +48,11 @@ public abstract class BaseTweetSwipeRecyclerFragment extends BaseTweetRecyclerFr
     }
 
     @Override
+    protected void onRecyclerBottomReached() {
+        mSwipeRefreshLayout.setRefreshing(true);
+    }
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.main, menu);
@@ -92,4 +97,6 @@ public abstract class BaseTweetSwipeRecyclerFragment extends BaseTweetRecyclerFr
     protected void onSearchQueryChanged(String query){}
 
     protected abstract void onRefreshSwiped();
+
+
 }

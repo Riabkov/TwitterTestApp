@@ -60,7 +60,7 @@ public class TwitterRepository {
 
     public void getTweets(OnDataPassCallback callback, String query, long max_id, long since_id) {
 
-            mTwitterApi.searchTweets(query, max_id, since_id, getTweetsPerPageCount()).enqueue(new Callback<TweetsResponse>() {
+            mTwitterApi.searchTweets(query, max_id-1, since_id, getTweetsPerPageCount()).enqueue(new Callback<TweetsResponse>() {
                 @Override
                 public void success(Result<TweetsResponse> result) {
                     compareTweetLists(result.data.getTweets());

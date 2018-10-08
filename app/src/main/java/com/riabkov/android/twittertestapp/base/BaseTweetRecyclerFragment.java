@@ -59,7 +59,8 @@ public abstract class BaseTweetRecyclerFragment extends BaseFragment {
         };
 
         Paginate.with(mRecyclerView, callbacks)
-              //  .setLoadingTriggerThreshold(4)
+                .setLoadingTriggerThreshold(2)
+                .addLoadingListItem(false)
                 .build();
     }
 

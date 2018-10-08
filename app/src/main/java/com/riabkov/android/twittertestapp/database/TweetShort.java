@@ -34,6 +34,9 @@ public class TweetShort {
     @SerializedName("id")
     private long id;
 
+    @SerializedName("id_str")
+    private String idStr;
+
     @SerializedName("coordinates")
     private Coordinates coordinates;
 
@@ -120,5 +123,13 @@ public class TweetShort {
 
     public void setFavorite(boolean favorite) {
         isFavorite = favorite;
+    }
+
+    public String getIdStr() {
+        return idStr;
+    }
+
+    public void setIdStr(String idStr) {
+        this.idStr = idStr;
     }
 }
