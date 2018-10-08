@@ -8,34 +8,37 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/tweet_user_picture"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        app:civ_border_color="@android:color/black"
-        app:civ_border_width="1dp"
+        android:src="@drawable/ic_placeholder"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
 
-    <TextView
+    <android.support.text.emoji.widget.EmojiTextView
         android:id="@+id/tweet_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        android:textIsSelectable="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tweet_user_picture"
         app:layout_constraintTop_toBottomOf="@+id/tweet_user_name"
-        tools:text="Some randow tweet text"/>
+        tools:text="Some random tweet text"/>
 
     <TextView
         android:id="@+id/tweet_user_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/tweet_user_picture"
         app:layout_constraintTop_toTopOf="@+id/tweet_user_picture"
         tools:text="Author"/>
@@ -44,8 +47,8 @@
         android:id="@+id/tweet_favorite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:background="@android:color/transparent"
+        android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/tweet_text"
         app:layout_constraintTop_toBottomOf="@+id/tweet_text"
@@ -55,9 +58,7 @@
     <View
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="#979797"
+        android:background="#e2e2e2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

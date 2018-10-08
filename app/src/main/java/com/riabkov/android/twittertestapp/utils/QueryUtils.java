@@ -13,7 +13,7 @@ public class QueryUtils {
         String view_query = searchView.getQuery().toString();
         if(view_query.isEmpty()){
             return  Constants.BASE_QUERY;
-        }if(view_query.length() < 3){
+        }if(view_query.length() < 2){
             if(!mPreviousQuery.isEmpty()){
                 return mPreviousQuery;
             }

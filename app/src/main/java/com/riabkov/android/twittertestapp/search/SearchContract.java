@@ -3,7 +3,6 @@ package com.riabkov.android.twittertestapp.search;
 import com.riabkov.android.twittertestapp.base.IPresenter;
 import com.riabkov.android.twittertestapp.base.IView;
 import com.riabkov.android.twittertestapp.database.TweetShort;
-import com.riabkov.android.twittertestapp.network.TwitterApi;
 
 import java.util.List;
 
@@ -22,5 +21,10 @@ public class SearchContract {
 
         void getNextTweets(String query, long max_id);
 
+        void addFavorite(TweetShort tweetShort);
+
+        void removeFavorite(TweetShort tweetShort);
+
+        int getTweetsPerPage();
     }
 }

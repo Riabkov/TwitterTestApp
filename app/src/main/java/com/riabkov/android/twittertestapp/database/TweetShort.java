@@ -21,6 +21,15 @@ public class TweetShort {
 
     }
 
+    public TweetShort(Tweet tweet) {
+        this.id = tweet.getId();
+        this.coordinates = tweet.coordinates;
+        this.tweetEntities = tweet.entities;
+        this.text = tweet.text;
+        this.user = tweet.user;
+        this.displayTextRange = tweet.displayTextRange;
+    }
+
     @PrimaryKey
     @SerializedName("id")
     private long id;
@@ -39,6 +48,8 @@ public class TweetShort {
 
     @SerializedName("display_text_range")
     private List<Integer> displayTextRange;
+
+    private boolean isFavorite = false;
 
     public long getId() {
         return id;
@@ -83,6 +94,9 @@ public class TweetShort {
     @Override
     public boolean equals(Object o) {
         if (o == null) return false;
+        if(o instanceof Tweet){
+            return ((Tweet) o).id == this.id;
+        }
         if (!(o instanceof TweetShort)) return false;
         final TweetShort other = (TweetShort) o;
         return this.id == other.id;
@@ -94,5 +108,17 @@ public class TweetShort {
 
     public void setDisplayTextRange(List<Integer> displayTextRange) {
         this.displayTextRange = displayTextRange;
+    }
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite() {
+        isFavorite = true;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
     }
 }

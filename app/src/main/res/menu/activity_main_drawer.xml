@@ -7,15 +7,15 @@
         <item
             android:id="@+id/nav_search"
             android:icon="@drawable/ic_menu_search"
-            android:title="Search"/>
+            android:title="@string/menu_search"/>
         <item
             android:id="@+id/nav_nearby"
             android:icon="@drawable/ic_menu_nearby"
-            android:title="Nearby"/>
+            android:title="@string/menu_nearby"/>
         <item
             android:id="@+id/nav_favourite"
             android:icon="@drawable/ic_menu_favourite"
-            android:title="Favourite"/>
+            android:title="@string/menu_favorite"/>
     </group>
 
 </menu>

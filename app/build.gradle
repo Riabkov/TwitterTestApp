@@ -80,4 +80,6 @@ dependencies {
     }
 
     compile 'com.github.markomilos:paginate:0.5.1'
+    compile "com.android.support:support-emoji:27.1.1"
+    compile 'com.vdurmont:emoji-java:4.0.0'
 }

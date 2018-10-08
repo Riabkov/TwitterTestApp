@@ -2,13 +2,18 @@
     <string name="app_name">TwitterTestApp</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">Test Twitter App</string>
+    <string name="nav_header_subtitle">by Riabkov Stanislav</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="com_twitter_sdk_android_CONSUMER_KEY">N2uuREDTjDQMZLvaJNf6DRy3V</string>
     <string name="com_twitter_sdk_android_CONSUMER_SECRET">KyNGoBF5dZAh0S8z1L4AlZPWFpcJAOi39Q3ogw9rRsbYjSUsMc</string>
+    <string name="menu_search">Search</string>
+    <string name="menu_nearby">Nearby</string>
+    <string name="menu_favorite">Favourite</string>
+    <string name="title_favorite">Favorite tweets</string>
+    <string name="title_nearby">Nearby tweets</string>
+    <string name="title_search">Search tweets</string>
 </resources>

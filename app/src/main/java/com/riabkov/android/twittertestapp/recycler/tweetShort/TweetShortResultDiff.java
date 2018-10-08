@@ -7,7 +7,7 @@ import com.riabkov.android.twittertestapp.database.TweetShort;
 
 import java.util.List;
 
-public class TweetShortResultDiff extends DiffUtil.Callback {
+class TweetShortResultDiff extends DiffUtil.Callback {
 
     private final List<TweetShort> mOldList;
     private final List<TweetShort> mNewList;

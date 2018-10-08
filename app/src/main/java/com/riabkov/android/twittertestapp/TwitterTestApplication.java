@@ -1,6 +1,10 @@
 package com.riabkov.android.twittertestapp;
 
 import android.app.Application;
+import android.support.annotation.Nullable;
+import android.support.text.emoji.EmojiCompat;
+import android.support.text.emoji.FontRequestEmojiCompatConfig;
+import android.support.v4.provider.FontRequest;
 import android.util.Log;
 
 import com.riabkov.android.twittertestapp.dagger.ApplicationComponent;
@@ -8,19 +12,18 @@ import com.riabkov.android.twittertestapp.dagger.ApplicationModule;
 import com.riabkov.android.twittertestapp.dagger.DaggerApplicationComponent;
 import com.riabkov.android.twittertestapp.dagger.DataModule;
 import com.riabkov.android.twittertestapp.network.CustomTwitterApiClient;
-import com.twitter.sdk.android.core.Callback;
+import com.riabkov.android.twittertestapp.network.ResponseInterceptor;
 import com.twitter.sdk.android.core.DefaultLogger;
-import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 import com.twitter.sdk.android.core.TwitterConfig;
 import com.twitter.sdk.android.core.TwitterCore;
-import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
-import com.twitter.sdk.android.core.models.Search;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+
+import static android.support.constraint.Constraints.TAG;
 
 public class TwitterTestApplication extends Application {
     public static ApplicationComponent mApplicationComponent;
@@ -54,7 +57,9 @@ public class TwitterTestApplication extends Application {
         final HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         final OkHttpClient customClient = new OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor).build();
+                .addInterceptor(loggingInterceptor)
+                .addInterceptor(new ResponseInterceptor())
+                .build();
 
         // pass custom OkHttpClient into TwitterApiClient and add to TwitterCore
 
@@ -66,7 +71,24 @@ public class TwitterTestApplication extends Application {
             TwitterCore.getInstance().addGuestApiClient(mCustomApiClient);
         }
 
+        final FontRequest fontRequest = new FontRequest(
+                "com.google.android.gms.fonts",
+                "com.google.android.gms",
+                "Noto Color Emoji Compat",
+                R.array.com_google_android_gms_fonts_certs);
+        EmojiCompat.init(new FontRequestEmojiCompatConfig(getApplicationContext(), fontRequest)
+                .setReplaceAll(true)
+                .registerInitCallback(new EmojiCompat.InitCallback() {
+                    @Override
+                    public void onInitialized() {
+                        Log.i(TAG, "EmojiCompat initialized");
+                    }
 
+                    @Override
+                    public void onFailed(@Nullable Throwable throwable) {
+                        Log.e(TAG, "EmojiCompat initialization failed", throwable);
+                    }
+                }));
     }
 
     public static CustomTwitterApiClient getCustomApiClient() {

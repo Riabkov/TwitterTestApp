@@ -5,7 +5,7 @@ import android.arch.persistence.room.RoomDatabase;
 
 @Database(entities = {
         TweetShort.class
-}, version = 1)
+}, version = 2)
 public abstract class TweetsDatabase extends RoomDatabase {
 
     public abstract TweetsDao tweetsDao();

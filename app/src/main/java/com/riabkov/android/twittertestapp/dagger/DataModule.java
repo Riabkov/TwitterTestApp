@@ -3,12 +3,10 @@ package com.riabkov.android.twittertestapp.dagger;
 import android.app.Application;
 import android.arch.persistence.room.Room;
 import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.os.Build;
-import android.provider.Settings;
 
 import com.riabkov.android.twittertestapp.TwitterTestApplication;
+import com.riabkov.android.twittertestapp.dagger.scope.ApplicationContext;
+import com.riabkov.android.twittertestapp.database.SharedPrefController;
 import com.riabkov.android.twittertestapp.database.TweetsDatabase;
 import com.riabkov.android.twittertestapp.network.TwitterApi;
 import com.riabkov.android.twittertestapp.repo.TwitterRepository;
@@ -42,7 +40,13 @@ public class DataModule {
 
     @Provides
     @Singleton
-    TwitterRepository provideTwitterRepository(TwitterApi api, TweetsDatabase database){
-        return new TwitterRepository(api, database);
+    TwitterRepository provideTwitterRepository(TwitterApi api, TweetsDatabase database, SharedPrefController sharedPrefController){
+        return new TwitterRepository(api, database, sharedPrefController);
+    }
+
+    @Provides
+    @Singleton
+    SharedPrefController provideSharedPref(@ApplicationContext Context context){
+        return new SharedPrefController(context);
     }
 }

@@ -6,9 +6,9 @@ import android.view.View;
 
 public abstract class CustomClickableSpan extends ClickableSpan {
 
-    private String mClickableText;
+    private final String mClickableText;
 
-    public CustomClickableSpan (String text){
+    protected CustomClickableSpan(String text){
         mClickableText = text;
     }
 
@@ -17,5 +17,5 @@ public abstract class CustomClickableSpan extends ClickableSpan {
         onTextClick(mClickableText, widget);
     }
 
-    public abstract void onTextClick(String text, View widget);
+    protected abstract void onTextClick(String text, View widget);
 }

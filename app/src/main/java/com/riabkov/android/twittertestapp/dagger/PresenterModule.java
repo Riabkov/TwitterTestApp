@@ -1,7 +1,5 @@
 package com.riabkov.android.twittertestapp.dagger;
 
-import android.support.annotation.NonNull;
-
 import com.riabkov.android.twittertestapp.favourite.FavoriteContract;
 import com.riabkov.android.twittertestapp.favourite.FavoritePresenter;
 import com.riabkov.android.twittertestapp.nearby.NearbyContract;

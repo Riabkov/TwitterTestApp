@@ -9,22 +9,21 @@ import android.view.ViewGroup;
 
 import com.riabkov.android.twittertestapp.R;
 import com.riabkov.android.twittertestapp.database.TweetShort;
-import com.twitter.sdk.android.core.models.Tweet;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TweetShortAdapter extends RecyclerView.Adapter<TweetShortHolder> {
 
-    private static final int ITEM = 0;
-    private static final int LOADING = 1;
 
     private List<TweetShort> mTweets = new ArrayList<>();
-    private boolean isLoadingAdded = false;
-    private TweetShortHolder.OnClickableEntityClicked mOnClickableEntityClicked;
 
-    public TweetShortAdapter(TweetShortHolder.OnClickableEntityClicked entityClicked){
+    private TweetShortHolder.OnClickableEntityClicked mOnClickableEntityClicked;
+    private TweetShortHolder.OnFavoriteClicked mOnFavoriteClicked;
+
+    public TweetShortAdapter(TweetShortHolder.OnClickableEntityClicked entityClicked, TweetShortHolder.OnFavoriteClicked onFavoriteClicked){
         mOnClickableEntityClicked = entityClicked;
+        mOnFavoriteClicked = onFavoriteClicked;
     }
 
     @NonNull
@@ -37,7 +36,7 @@ public class TweetShortAdapter extends RecyclerView.Adapter<TweetShortHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull TweetShortHolder holder, int position) {
-        holder.bindTweet(mTweets.get(position), mOnClickableEntityClicked);
+        holder.bindTweet(mTweets.get(position), mOnClickableEntityClicked, mOnFavoriteClicked);
     }
 
     @Override
@@ -45,10 +44,6 @@ public class TweetShortAdapter extends RecyclerView.Adapter<TweetShortHolder> {
         return mTweets.size();
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        return (position == mTweets.size() - 1 && isLoadingAdded) ? LOADING : ITEM;
-    }
 
     public void updateData(List<TweetShort> tweets){
         DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new TweetShortResultDiff(mTweets, tweets));
