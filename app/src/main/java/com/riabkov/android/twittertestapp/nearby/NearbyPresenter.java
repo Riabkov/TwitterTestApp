@@ -71,7 +71,7 @@ public class NearbyPresenter implements NearbyContract.Presenter {
 
             @Override
             public void passData(List<TweetShort> data) {
-                mView.showFreshTweets(data);
+                mView.showNextTweets(data);
             }
         }, query, latitude, longitude,max_id, 0);
     }

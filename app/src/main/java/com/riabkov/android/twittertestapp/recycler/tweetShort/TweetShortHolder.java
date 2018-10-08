@@ -22,6 +22,7 @@ import com.twitter.sdk.android.core.models.HashtagEntity;
 import com.twitter.sdk.android.core.models.MentionEntity;
 import com.twitter.sdk.android.core.models.TweetEntities;
 import com.twitter.sdk.android.core.models.UrlEntity;
+import com.vdurmont.emoji.EmojiManager;
 import com.vdurmont.emoji.EmojiParser;
 
 import java.util.ArrayList;
@@ -77,8 +78,10 @@ public class TweetShortHolder extends RecyclerView.ViewHolder {
             for(HashtagEntity entity: hashtagEntities){
                 int offset = findOffset(emojis_start, entity.indices.get(0));
                 int code_start = entity.indices.get(0)+offset;
-                int code_end = entity.indices.get(1)+offset;
-
+                int code_end =  entity.indices.get(1) + offset;
+                if(code_end > spannableString.length()) {
+                    code_end = spannableString.length();
+                }
                 spannableString.setSpan(newClickableSpan("#"+entity.text, entityClicked), code_start, code_end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
         }
@@ -87,7 +90,10 @@ public class TweetShortHolder extends RecyclerView.ViewHolder {
             for(MentionEntity entity: mentionEntities){
                 int offset = findOffset(emojis_start, entity.indices.get(0));
                 int code_start = entity.indices.get(0)+offset;
-                int code_end = entity.indices.get(1)+offset;
+                int code_end =  entity.indices.get(1) + offset;
+                if(code_end > spannableString.length()) {
+                    code_end = spannableString.length();
+                }
                 spannableString.setSpan(newClickableSpan("@"+entity.screenName, entityClicked), code_start, code_end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
             }
@@ -97,7 +103,10 @@ public class TweetShortHolder extends RecyclerView.ViewHolder {
             for(UrlEntity entity: urlEntities){
                 int offset = findOffset(emojis_start, entity.indices.get(0));
                 int code_start = entity.indices.get(0)+offset;
-                int code_end = entity.indices.get(1)+offset;
+                int code_end =  entity.indices.get(1) + offset;
+                if(code_end > spannableString.length()) {
+                    code_end = spannableString.length();
+                }
                 spannableString.setSpan(newUrlClickableSpan(entity.expandedUrl), code_start, code_end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
         }
