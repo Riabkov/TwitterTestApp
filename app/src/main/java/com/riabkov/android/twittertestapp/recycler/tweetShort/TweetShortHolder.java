@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.net.Uri;
+import android.support.text.emoji.EmojiCompat;
 import android.support.text.emoji.widget.EmojiTextView;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
@@ -27,6 +28,8 @@ import com.vdurmont.emoji.EmojiParser;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -70,13 +73,16 @@ public class TweetShortHolder extends RecyclerView.ViewHolder {
 
         List<String> emojis = EmojiParser.extractEmojis(mTweetShort.getText());
         List<Integer> emojis_start = new ArrayList<>();
+        List<Integer> emojis_length = new ArrayList<>();
+
         for(String emoji: emojis){
             emojis_start.add(text.indexOf(emoji));
+            emojis_length.add(emoji.length());
         }
 
         if(hashtagEntities != null && !hashtagEntities.isEmpty()){
             for(HashtagEntity entity: hashtagEntities){
-                int offset = findOffset(emojis_start, entity.indices.get(0));
+                int offset = findOffset(emojis_start, emojis_length, entity.indices.get(0));
                 int code_start = entity.indices.get(0)+offset;
                 int code_end =  entity.indices.get(1) + offset;
                 if(code_end > spannableString.length()) {
@@ -88,7 +94,7 @@ public class TweetShortHolder extends RecyclerView.ViewHolder {
 
         if(mentionEntities != null && !mentionEntities.isEmpty()){
             for(MentionEntity entity: mentionEntities){
-                int offset = findOffset(emojis_start, entity.indices.get(0));
+                int offset = findOffset(emojis_start, emojis_length, entity.indices.get(0));
                 int code_start = entity.indices.get(0)+offset;
                 int code_end =  entity.indices.get(1) + offset;
                 if(code_end > spannableString.length()) {
@@ -101,7 +107,7 @@ public class TweetShortHolder extends RecyclerView.ViewHolder {
 
         if(urlEntities != null && !urlEntities.isEmpty()){
             for(UrlEntity entity: urlEntities){
-                int offset = findOffset(emojis_start, entity.indices.get(0));
+                int offset = findOffset(emojis_start, emojis_length, entity.indices.get(0));
                 int code_start = entity.indices.get(0)+offset;
                 int code_end =  entity.indices.get(1) + offset;
                 if(code_end > spannableString.length()) {
@@ -167,13 +173,14 @@ public class TweetShortHolder extends RecyclerView.ViewHolder {
         }
     }
 
-    private int findOffset(List<Integer> emoji_starts, int char_start){
+    private int findOffset(List<Integer> emoji_starts,List<Integer> emoji_length, int char_start){
         int offset = 0;
         for(int i = 0; i<emoji_starts.size(); i++){
             if(emoji_starts.get(i)>char_start){
                 break;
             }
-            offset+= 1;
+            int length = emoji_length.get(i);
+            offset+= length-1;
         }
         return offset;
     }
